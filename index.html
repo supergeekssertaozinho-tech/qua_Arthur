@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Site com Topo, Corpo e Rodapé</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+
+      /* ✅ FUNDO DO SITE COM A IMAGEM "logo" */
+      background-image: url("logo.jpg"); /* troque para .jpg/.webp se necessário */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .header-title {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px rgba(255,255,255,0.4);
+      animation: floatZ 3s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    @keyframes floatZ {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+      background-color: rgba(255,255,255,0.8);
+      backdrop-filter: blur(4px);
+      border-radius: 12px;
+      margin: 20px;
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .img-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .img-box {
+      background-color: beige;
+      width: 100%;
+      padding-top: 30%;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      pointer-events: auto;
+      will-change: transform;
+    }
+
+    .img-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .img-box::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+      pointer-events: none;
+      transition: transform 0.3s ease;
+    }
+
+    .img-pic {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .img-title {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      font-size: 14px;
+      color: white;
+      font-weight: bold;
+      opacity: 0.9;
+      z-index: 2;
+      transition: transform 0.3s ease;
+    }
+
+    .play-btn-wrapper {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .play-btn {
+      background-color: red;
+      color: #ffffff;
+      border: none;
+      padding: 12px 28px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      background-color: #cc0000;
+    }
+
+    .play-btn:active {
+      transform: scale(0.95);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      background-color: #aa0000;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 9999;
+    }
+
+    .modal.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      width: 80%;
+      max-width: 600px;
+      animation: zoomIn 0.3s ease;
+    }
+
+    .modal-img {
+      width: 100%;
+      padding-top: 100%;
+      background: red;
+      border-radius: 10px;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.5); }
+      to { transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1 class="header-title">Topo do Site</h1>
+  </header>
+
+  <main>
+    <div class="img-grid">
+
+      <div class="img-box">
+        <img src="char.png" class="img-pic"/>
+        <span class="img-title">Personagem</span>
+      </div>
+
+      <div class="img-box">
+        <img src="inimigo.png" class="img-pic"/>
+        <span class="img-title">Inimigo</span>
+      </div>
+
+      <div class="img-box">
+        <img src="Background.png" class="img-pic"/>
+        <span class="img-title">Cenário</span>
+      </div>
+
+      <div class="img-box">
+        <img src="Tilemap.png" class="img-pic"/>
+        <span class="img-title">Tilemap</span>
+      </div>
+
+    </div>
+
+    <div class="play-btn-wrapper">
+      <button class="play-btn">Jogar agora</button>
+    </div>
+  </main>
+
+  <footer>
+    <p class="ft1">Arthur_R</p>
+    <p class="ft2">Produzido no Curso Natal IA - SuperGeeks Sertãozinho</p>
+    <p class="ft3">Todos os direitos reservados.</p>
+  </footer>
+
+  <div id="img-modal" class="modal">
+    <div class="modal-content" id="modal-content"></div>
+  </div>
+
+  <script>
+    const boxes = document.querySelectorAll('.img-box');
+    const modal = document.getElementById('img-modal');
+    const modalContent = document.getElementById('modal-content');
+
+    boxes.forEach(box => {
+      box.addEventListener('click', () => {
+        modal.classList.add('open');
+        modalContent.innerHTML = '<div class="modal-img"></div>';
+      });
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>
