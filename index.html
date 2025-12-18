@@ -210,39 +210,32 @@
       background-color: #aa0000;
     }
 
-    .modal {
+    /* Modal */
+    .img-modal {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
       z-index: 9999;
+      cursor: pointer;
     }
 
-    .modal.open {
-      opacity: 1;
-      pointer-events: all;
+    /* Imagem expandida */
+    .img-modal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: 14px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
     }
 
-    .modal-content {
-      width: 80%;
-      max-width: 600px;
-      animation: zoomIn 0.3s ease;
+    /* Cursor indicando interação */
+    .img-box {
+      cursor: pointer;
     }
 
-    .modal-img {
-      width: 100%;
-      padding-top: 100%;
-      background: red;
-      border-radius: 10px;
-    }
 
     @keyframes zoomIn {
       from {
@@ -316,7 +309,25 @@
   </div>
 
   <script>
+    document.querySelectorAll('.img-box').forEach(box => {
+      box.addEventListener('click', () => {
+        const img = box.querySelector('.img-pic')
 
+        const modal = document.createElement('div')
+        modal.className = 'img-modal'
+
+        const modalImg = document.createElement('img')
+        modalImg.src = img.src
+
+        modal.appendChild(modalImg)
+        document.body.appendChild(modal)
+
+        // Fecha ao clicar
+        modal.addEventListener('click', () => {
+          modal.remove()
+        })
+      })
+    })
     //Inserir link
     document.querySelector("button").addEventListener("click", () => {
       window.open("https://gd.games/instant-builds/b059ba5b-1df1-45d7-ab11-5acba70f731c", "_blank");
